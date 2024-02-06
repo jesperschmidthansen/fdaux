@@ -10,7 +10,8 @@ where $\boldsymbol{\phi} = (\phi_1, \phi_2, \ldots)$. The user can provide the r
 
 
 <h2>Example</h2>
-The example below shows how fd can help to simulate a Turing structure
+The example below shows how fd can help to simulate a Turing structure. First, we define the dynamics of the two dynamcal qunatities a and b
+
 <div class="box"> 
 <pre>
 function dadt = rhsa(time, funvar)
@@ -27,6 +28,10 @@ function dbdt = rhsb(time, funvar)
   dbdt = reaction + diffcoef.*b.laplace();
 end
 </pre>
+</div>
+Then setting up the syste,
+<div class="box">
+  <pre>
 lbox = 100; ngrd = 100; dx =lbox/ngrd; dt = 0.1*dx^2/100.0; nloops = 1e4;
 alpha = 0.01; beta = 0.5; diffcoef = 100;
 
@@ -37,7 +42,7 @@ a.value = 0.2*(rand(ngrd)-0.5) + alpha^(1/3);
 b.value = 0.2*(rand(ngrd)-0.5) + alpha^(1/3);
 
 intgr = fdAdams2d(dt, 2);
-
+</pre>
 for n=1:nloops
         a = intgr.fstep(a, "rhsa", {a,b, alpha});
         b = intgr.fstep(b, "rhsb", {a,b, beta, diffcoef});
