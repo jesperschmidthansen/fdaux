@@ -12,7 +12,7 @@ where $\boldsymbol{\phi} = (\phi_1, \phi_2, \ldots)$. The user can provide the r
 <h2>Example</h2>
 The example below shows how fd can help to simulate a Turing structure
 <div class="box"> 
-<pre>
+
 function dadt = rhsa(time, funvar)
   a = funvar{1}; b = funvar{2}; alpha = funvar{3};
   reaction = a.value - a.value.^3 - b.value + alpha;
@@ -39,7 +39,6 @@ b.value = 0.2*(rand(ngrd)-0.5) + alpha^(1/3);
 intgr = fdAdams2d(dt, 2);
 
 for n=1:nloops
-        
         a = intgr.fstep(a, "rhsa", {a,b, alpha});
         b = intgr.fstep(b, "rhsb", {a,b, beta, diffcoef});
 
@@ -50,5 +49,4 @@ for n=1:nloops
                 pause(0.01);
         end
 end
-</pre>
 </div>
