@@ -18,15 +18,15 @@ function dadt = rhsa(time, funvar)
   reaction = a.value - a.value.^3 - b.value + alpha;
   dadt = reaction + a.laplace();
 end
-
-
+</pre>
+<pre>
 function dbdt = rhsb(time, funvar)
   a = funvar{1}; b = funvar{2};
   beta = funvar{3}; diffcoef = funvar{4};
   reaction = beta.*(a.value - b.value);
   dbdt = reaction + diffcoef.*b.laplace();
 end
-
+</pre>
 lbox = 100; ngrd = 100; dx =lbox/ngrd; dt = 0.1*dx^2/100.0; nloops = 1e4;
 alpha = 0.01; beta = 0.5; diffcoef = 100;
 
