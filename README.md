@@ -14,16 +14,15 @@ The example below shows how fd can help to simulate a Turing structure
 <div class="box"> 
 <pre>
 function dadt = rhsa(time, funvar)
-      a = funvar{1}; b = funvar{2}; alpha = funvar{3};
-      reaction = a.value - a.value.^3 - b.value + alpha;
-      dadt = reaction + a.laplace();
+  a = funvar{1}; b = funvar{2}; alpha = funvar{3};
+  reaction = a.value - a.value.^3 - b.value + alpha;
+  dadt = reaction + a.laplace();
 end
 
-function dbdt = rhsb(time, funvar)
-      a = funvar{1}; b = funvar{2};
-      beta = funvar{3}; diffcoef = funvar{4};
-      reaction = beta.*(a.value - b.value);
-      dbdt = reaction + diffcoef.*b.laplace();
+function dbdt = rhsb(time, funvar) a = funvar{1}; b = funvar{2};
+  beta = funvar{3}; diffcoef = funvar{4};
+  reaction = beta.*(a.value - b.value);
+  dbdt = reaction + diffcoef.*b.laplace();
 end
 
 lbox = 100; ngrd = 100; dx =lbox/ngrd; dt = 0.1*dx^2/100.0; nloops = 1e4;
