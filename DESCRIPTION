@@ -1,0 +1,93 @@
+
+*************
+* PURPOSE   *
+*************
+
+To provide a toolbox for finite difference methods to solve transport equations 
+
+*******************************************
+* CONVENTIONS & SIMULATION BOX GEOMETRIES *
+*******************************************
+
+- Function files/names: fd<small letters acronym><#dimensions>d.<source code indicator m or c or cpp>
+- Classes: fd<First letter in capital of acronym>.m 	
+
+- For one dimensional domain
+
+    _______ x
+
+
+- For two dimensional domain
+
+   y          y-dir -> index j 
+   |          x-dir -> index i
+   |
+   |______ x 
+ 
+	phi(x,y) -> phi_ji
+
+       3/north
+      ---------
+      |       |
+  4/  |       | 2/east    BC index
+ west |       | 
+      --------      
+       1/south
+
+
+*******************
+* FUNCTION FILES  *
+*******************
+
+*** Two dimensions
+
+(1) fdsor2d  - Succesive over-relaxation method for the Poisson eq.
+(2) fdscnd2d - Second order derivative (Standard centered difference - 2nd order) 
+(3) fdcds2d  - First order derivative; centered difference
+(4) fdfrwd2d - First order derivative; forward difference
+(5) fdbckwd2d - First order derivative: backward difference 
+(6) fdcmat2d - Coefficient matrix for Poisson eq. when using the direct method
+(7) fdm2v2d - Tranform matrix to vector (Poisson eq. direct method) 
+(8) fdv2m2d - Transform vector to matrix  (Poisson eq. direct method) 
+(9) fdspec2d - Spectral method for the Poisson eq. (Periodic BCs in square domain only)
+(10) fdpois2d - Poisson eq. solver (yet another wrapper) - NOT FINISHED
+(11) fdvteq2d - Vortex transport equation in 2 dimensions
+(12) fdsuv2d - Stream function and velocity field from vorticity field
+
+
+
+**************************
+* CLASS DEFINITION FILES *
+**************************
+
+- Variable classes
+	
+	fdQuantity ---> fdQuant2d	
+
+- Integrator classes
+	
+	fdIntegrator ---> fdEuler2d
+                      fdAdams2d 
+
+- Obstacle class (future)
+		
+	fdObstacle ---> fdObstacle2d
+
+
+
+*********
+* TESTS *
+*********
+
+
+
+************
+* PROGRAMS *
+************
+
+(1) runDiffusion - 2d diffusion Neuman/Dirichlet bcs, comparison with analytical solution
+(2) runVorticity - the 2d vorticity equation with periodic bcs
+(3) runCavity - the famous 2d cavity flow
+(4) RunTuring - Turing structures in 2d
+
+
