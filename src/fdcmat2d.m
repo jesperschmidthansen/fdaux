@@ -1,7 +1,28 @@
-
+#
+# Usage: cmatrix = fdcmat2d(ngrids, grid spacing)
+#
+# Generate the coefficient matrix to solve the Poisson equation
+#
+# input
+# ngrids: number of grid points in each direction 
+# grid spacing: Spacing between grid points
+#
+# output
+# The coefficient matrix (sparse matrix)   
+#
+# example
+# cmat = fdcmat2d([100, 50], [0.1, 0.2]);
+#
 function cmat = fdcmat2d(ngrids, spacings)
 
+	if nargin != 2 
+		error("Number of inputs must be 2");
+	end
 
+	if ( length(ngrids)!=2 || length(spacings)!=2 )
+		error("Input variables ngrids and spacings must have length 2");
+	end
+	
 	ngx = ngrids(1); ngy = ngrids(2);
 	dx = spacings(1); dy = spacings(2); 
 

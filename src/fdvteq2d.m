@@ -1,5 +1,13 @@
+
+
+# Usage dwdt = fdveq2d(time now, cell array)
+#
+# Right-hand side of the two dimensional vortecity equation 
+#
+# input 
+# time now: the current time
+# cell array: A cell array with element {vorticity field, viscosity, 
 # 
-# Vorticity transport equation
 #
 function [dwdt psi u v] = fdvteq2d(time, funvar)
 
