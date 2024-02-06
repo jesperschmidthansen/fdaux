@@ -12,7 +12,7 @@ where $\boldsymbol{\phi} = (\phi_1, \phi_2, \ldots)$. The user can provide the r
 <h2>Example</h2>
 The example below shows how fd can help to simulate a Turing structure
 <div class="box"> 
-
+<pre>
 function dadt = rhsa(time, funvar)
   a = funvar{1}; b = funvar{2}; alpha = funvar{3};
   reaction = a.value - a.value.^3 - b.value + alpha;
@@ -49,4 +49,5 @@ for n=1:nloops
                 pause(0.01);
         end
 end
+</pre>
 </div>
