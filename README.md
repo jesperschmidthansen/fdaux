@@ -56,15 +56,14 @@ And run
 <div class="box">
   <pre>
 for n=1:nloops
-        a = intgr.fstep(a, "rhsa", {a,b, alpha});
-        b = intgr.fstep(b, "rhsb", {a,b, beta, diffcoef});
-
-        a.update(); b.update();
-
-        if rem(n,100)==0
-                imagesc(a.value);
-                pause(0.01);
-        end
+  a = intgr.fstep(a, "rhsa", {a,b, alpha});
+  b = intgr.fstep(b, "rhsb", {a,b, beta, diffcoef});
+  a.update(); b.update();
+  if rem(n,100)==0
+    imagesc(a.value);
+    pause(0.01);
+  end
 end
 </pre>
 </div>
+<img src="doc/turing.jpg" alt="turing">
