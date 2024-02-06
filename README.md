@@ -19,6 +19,7 @@ function dadt = rhsa(time, funvar)
   dadt = reaction + a.laplace();
 end
 
+
 function dbdt = rhsb(time, funvar)
   a = funvar{1}; b = funvar{2};
   beta = funvar{3}; diffcoef = funvar{4};
