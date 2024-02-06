@@ -6,13 +6,12 @@ $$
   \partial_t \boldsymbol{\phi} = \mathbf{F}(t,\boldsymbol{\phi}) 
 $$
 
-where $\boldsymbol{\phi} = (\phi_1, \phi_2, \ldots)$. 
+where $\boldsymbol{\phi} = (\phi_1, \phi_2, \ldots)$. The user can provide the right-hand function. 
 
 
 <h2>Example</h2>
-<div class="box> 
+<div class="box"> 
   <pre>
-
   function dadt = rhsa(time, funvar)
         
         a = funvar{1}; b = funvar{2}; alpha = funvar{3};
