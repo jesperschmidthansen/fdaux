@@ -66,4 +66,4 @@ for n=1:nloops
 end
 </pre>
 </div>
-<img src="doc/turing.jpg" alt="turing">
+<img src="doc/turing.jpg" alt="turing" width="50" height="50">
