@@ -29,20 +29,32 @@ function dbdt = rhsb(time, funvar)
 end
 </pre>
 </div>
-Then setting up the syste,
+Then setting up the system variables
 <div class="box">
   <pre>
 lbox = 100; ngrd = 100; dx =lbox/ngrd; dt = 0.1*dx^2/100.0; nloops = 1e4;
 alpha = 0.01; beta = 0.5; diffcoef = 100;
-
+  </pre>
+</div>
+Instancies of the quantities
+<div class="box">
+  <pre>
 a = fdQuant2d([ ngrd, ngrd],[dx, dx], "nnnn"); 
 b = fdQuant2d([ngrd, ngrd],[dx, dx], "nnnn"); 
 
 a.value = 0.2*(rand(ngrd)-0.5) + alpha^(1/3);
 b.value = 0.2*(rand(ngrd)-0.5) + alpha^(1/3);
-
-intgr = fdAdams2d(dt, 2);
-</pre>
+  </pre>
+</div>
+The integrator
+<div class="box">
+  <pre>
+  intgr = fdAdams2d(dt, 2);
+  </pre>
+</div>
+And run
+<div class="box">
+  <pre>
 for n=1:nloops
         a = intgr.fstep(a, "rhsa", {a,b, alpha});
         b = intgr.fstep(b, "rhsb", {a,b, beta, diffcoef});
