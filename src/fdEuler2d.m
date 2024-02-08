@@ -24,8 +24,10 @@ classdef fdEuler2d < fdIntegrator
 			phi.nvalue = phi.value + feval(rhs, this.tnow, funvar)*this.dt;
 			
 			this.update();
+
 		end
 
+#{
 		function [w, phi, u, v] = vstep(this, w, phi, u, v, invRe)
 			w.calcddx(); w.calcddy(); 
 			w.calcd2dx2(); w.calcd2dy2();	
@@ -45,7 +47,7 @@ classdef fdEuler2d < fdIntegrator
 			this.iteration = this.iteration + 1;
 			this.tnow = this.tnow + this.dt;
 		end
-
+#}
 	end
 
 end

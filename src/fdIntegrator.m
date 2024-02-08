@@ -2,8 +2,8 @@
 classdef fdIntegrator < handle
 
 	properties
-		# Time step and current time
-		dt; tnow;
+		# Time step, maximum allowed time step, and current time
+		dt; dtmax, tnow;
 
 		# No. of iteration performed
 		niterations;
@@ -22,13 +22,33 @@ classdef fdIntegrator < handle
 		end		
 
 		function update(this)
+
 			this.ccall = this.ccall + 1;
+			
 			if this.ccall == this.ncall
-				this.ccall = 0;
+				this.ccall = 0; 
 				this.niterations = this.niterations + 1;
 				this.tnow = this.dt + this.tnow;
 			end	 	
+
 		end
+
+		function setdt(this, dtmax, u, v)
+
+			maxcourant = 0.9;
+
+			if nargin==2
+				this.dt = dtmax;
+			else
+				courant = fdcourant(this.dt, u, v);
+				this.dt = this.dt*min([maxcourant/courant, 1.01]);
+				
+				if this.dt > dtmax
+					this.dt = dtmax;
+				end	
+			endif
+
+		endfunction 
 
 	end
 
