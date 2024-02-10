@@ -34,16 +34,18 @@ lx  = 5; ly  = lx;
 ngx = 50; ngy = ngx;
 dx = lx/ngx; dy = ly/ngy;
 
+tend = 1.0; dt = 0.1*dx*dx; 
+nloops = int32(tend/dt);
+
 compare = true;
 
 a = fdQuant2d([ngx, ngy], [dx, dy], "ddnd"); 
 a.setvalue(100);
 
-dt = 0.1*dx*dx; 
-intgr = fdEuler2d(dt);
+intgr = fdAdams2d(dt);
 
 tic
-for n=1:1000
+for n=1:nloops
 	a = intgr.fstep(a, "rhs", {a, 1.0});
 	a.update();
 end
@@ -53,7 +55,7 @@ surf(a.value); xlabel('x'); ylabel('y'); zlabel('Num. solution');
 
 if compare
 
-	phiSol = solution(n*dt, lx, ly, 10, ngx);
+	phiSol = solution(tend, lx, ly, 10, ngx);
 	
 	x = linspace(0, lx, ngx); y = x;
 	[X Y]= meshgrid(x,y);
@@ -67,5 +69,7 @@ if compare
 
 	figure(2);
 	plot(a.value(ngx/2, :), 'ks', phiSol(ngx/2,:), 'b-');
+
+	printf("Max. error %f\n", max(max(abs(phiSol - a.value))));
 
 endif

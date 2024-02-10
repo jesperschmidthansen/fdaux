@@ -16,9 +16,9 @@ classdef fdIntegrator < handle
 	methods
 
 		function disp(this)
-			printf("Time step %e, current time %f and iteration number %d\n", ...
+			printf("Time step: %e, current time: %f, iteration number: %d\n", ...
 					this.dt, this.tnow, this.niterations);
-			printf("Call in this loop %d of no. of calls %d\n", this.ccall, this.ncall);
+			printf("Call in this loop is %d of no. of calls per loop %d\n", this.ccall, this.ncall);
 		end		
 
 		function update(this)
@@ -33,13 +33,11 @@ classdef fdIntegrator < handle
 
 		end
 
-		function setdt(this, dtmax, u, v)
-
-			maxcourant = 0.9;
+		function setdt(this, dtmax, maxcourant, u, v)
 
 			if nargin==2
 				this.dt = dtmax;
-			else
+			elseif nargin==5
 				courant = fdcourant(this.dt, u, v);
 				this.dt = this.dt*min([maxcourant/courant, 1.01]);
 				

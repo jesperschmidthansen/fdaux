@@ -6,20 +6,17 @@ classdef fdQuantity < handle
 		value; 
 
 		# quantity values for integrator: 
-		# new value, previous value
-		nvalue; pvalue; 
+		# new value, previous value, right-hand side, prev. right-hand side
+		nvalue; pvalue; rhs; prhs; 
 		
 		# Boundary values
 		bcs;
-
-		# Right-hand side of dynamical equation
-		rhs; prhs;
 	end
 
 	methods
 
 		function disp(this)
-			printf("From fdQuantity: you can access class properties directly\n"); 
+			printf("You can access class properties directly, e.g. this.value\n"); 
 		end
 
 	end
