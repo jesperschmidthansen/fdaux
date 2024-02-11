@@ -3,7 +3,7 @@ clear all;  addpath("../src/");
 ngrd = 100; dx = 0.1; dt = 5e-3;
 
 w = fdQuant2d([ngrd, ngrd],[dx, dx], "pppp"); 
-intgr = fdAdams2d(dt);
+intgr = fdAdams(dt);
 
 #### Initial condition ####
 h = 0.5*ngrd*dx; 

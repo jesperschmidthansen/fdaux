@@ -42,7 +42,7 @@ compare = true;
 a = fdQuant2d([ngx, ngy], [dx, dy], "ddnd"); 
 a.setvalue(100);
 
-intgr = fdAdams2d(dt);
+intgr = fdAdams(dt);
 
 tic
 for n=1:nloops

@@ -1,9 +1,9 @@
 
-classdef fdEuler2d < fdIntegrator
+classdef fdEuler < fdIntegrator
 
 	methods
 			
-		function this = fdEuler2d(dt, nquant=1)
+		function this = fdEuler(dt, nquant=1)
 			this.dt = dt;
 			this.tnow = 0; 
 			this.niterations = 0;

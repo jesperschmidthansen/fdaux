@@ -1,16 +1,14 @@
 
-classdef fdAdams2d < fdIntegrator
+classdef fdAdams < fdIntegrator
 
 	methods 
 	
-		function this = fdAdams2d(dt, nquant=1)
+		function this = fdAdams(dt, nquant=1)
 			this.dt = dt;
 			this.tnow = 0; 
 			this.niterations = 0;
 
 			this.ncall = nquant; this.ccall = 0;
-
-			this.dt = dt;
 		end
 
 		function phi = step(this, phi)

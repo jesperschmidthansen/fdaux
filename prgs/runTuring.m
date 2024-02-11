@@ -30,7 +30,7 @@ b = fdQuant2d([ngrd, ngrd],[dx, dx], "nnnn");
 a.value = 0.2*(rand(ngrd)-0.5) + alpha^(1/3);
 b.value = 0.2*(rand(ngrd)-0.5) + alpha^(1/3);
 
-intgr = fdAdams2d(dt, 2);
+intgr = fdAdams(dt, 2);
 
 for n=1:nloops
 	

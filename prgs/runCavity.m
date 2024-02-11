@@ -16,7 +16,7 @@ h = 0.5*ngrd*dx;
 x = linspace(-h, h); [X Y] = meshgrid(x,x);
 w.value = ones(ngrd, ngrd);
 
-intgr = fdEuler2d(dt);
+intgr = fdEuler(dt);
 
 for n=1:nloops
 
