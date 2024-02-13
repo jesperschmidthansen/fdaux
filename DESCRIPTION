@@ -69,8 +69,8 @@ To provide a toolbox for finite difference methods to solve transport equations
 
 - Integrator classes
 	
-	fdIntegrator ---> fdEuler2d
-                      fdAdams2d 
+	fdIntegrator ---> fdEuler
+                      fdAdams 
 
 - Obstacle class (future)
 		
