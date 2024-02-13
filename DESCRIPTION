@@ -66,6 +66,8 @@ To provide a toolbox for finite difference methods to solve transport equations
 - Variable classes
 	
 	fdQuantity ---> fdQuant2d	
+                    fdQuant1d
+	
 
 - Integrator classes
 	
@@ -92,5 +94,5 @@ To provide a toolbox for finite difference methods to solve transport equations
 (2) runVorticity - the 2d vorticity equation with periodic bcs
 (3) runCavity - the famous 2d cavity flow
 (4) RunTuring - Turing structures in 2d
-
+(5) RunBurgers - The 1d Burgers equation
 
