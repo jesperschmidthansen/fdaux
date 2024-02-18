@@ -49,7 +49,7 @@ b.value = 0.2*(rand(ngrd)-0.5) + alpha^(1/3);
 The integrator
 <div class="box">
   <pre>
-  intgr = fdAdams2d(dt, 2);
+  intgr = fdAdams(dt, 2);
   </pre>
 </div>
 And run
