@@ -67,7 +67,7 @@ classdef fdQuant1d < fdQuantity
 		function retval = calcd2dx2(this)
 			n = this.ngrd;		
 			
-			this.d2dx2 = zeros(1, n)
+			this.d2dx2 = zeros(1, n);
 
 			this.d2dx2(2:n-1) = this.value(1:n-2) - 2*this.value(2:n-1) + this.value(3:n);
  
@@ -75,13 +75,17 @@ classdef fdQuant1d < fdQuantity
 				this.d2dx2(1) = this.value(2) - 2*this.value(1) + this.value(n);
 			end
 
-			retval = this.d2dx2 = this.d2dx2./(this.dx^2)
+			retval = this.d2dx2 = this.d2dx2./(this.dx^2);
 		end
 
 		function retval = laplace(this)
 			
 			retval = this.calcd2dx2();
 				
+		end
+
+		function retval = grad(this)
+			retval = this.calcddx();
 		end
 
 		function applybcs(this)
