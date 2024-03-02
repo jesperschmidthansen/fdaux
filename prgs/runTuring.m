@@ -1,4 +1,4 @@
-clear all; addpath("../software/fdaux/src/");
+clear all; addpath("../src/");
 
 function creturn = rhs(time, cvariable, param)
 	
@@ -15,8 +15,8 @@ function creturn = rhs(time, cvariable, param)
 
 end
 
-lbox = 100; ngrd = 100; dx =lbox/ngrd; dt = 0.1*dx^2/100.0; nloops = 1e4;
-alpha = 0.01; beta = 0.5; diffcoef = 100;
+lbox = 100; ngrd = 100; dx =lbox/ngrd; dt = 0.1*dx^2/10.0; nloops = 1e5;
+alpha = 0.01; beta = 0.1; diffcoef = 10;
 
 a = fdQuant2d([ngrd, ngrd],[dx, dx], "pppp"); 
 b = fdQuant2d([ngrd, ngrd],[dx, dx], "pppp"); 
@@ -24,7 +24,7 @@ b = fdQuant2d([ngrd, ngrd],[dx, dx], "pppp");
 a.value = 0.2*(rand(ngrd)-0.5) + alpha^(1/3);
 b.value = 0.2*(rand(ngrd)-0.5) + alpha^(1/3);
 
-intgr = fdAdams(dt, 2);
+intgr = fdRK4(dt, 2);
 
 for n=1:nloops
 	
