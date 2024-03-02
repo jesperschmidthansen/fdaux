@@ -5,11 +5,13 @@ classdef fdIntegrator < handle
 		# Time step, maximum allowed time step, and current time
 		dt; dtmax, tnow;
 
+		# System dimensions
+		ndim;		
+
 		# No. of iteration performed
 		niterations;
 		
-		# Calls to be perfored within same loop
-		# and call counter
+		# Calls to be perfored within same loop and call counter
 		ncall; ccall; 
 	end
 

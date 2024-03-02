@@ -5,10 +5,11 @@ classdef fdQuantity < handle
 		# quantity value
 		value; 
 
-		# quantity values for integrator: 
+		# Auxillary variables for integrators: 
+		
 		# new value, previous value, right-hand side, prev. right-hand side
 		nvalue; pvalue; rhs; prhs; 
-		
+			
 		# Boundary values
 		bcs;
 	end

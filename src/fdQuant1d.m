@@ -57,8 +57,8 @@ classdef fdQuant1d < fdQuantity
 				if (nargin == 2 && strcmp(method, central)!=0 )
 					error("Only central difference support for periodic bcs");
 				end
-				this.ddx(1) = (this.value(2) - this.value(n)).*0.5*dx;
-				this.ddx(n) = (this.value(1) - this.value(n-1)).*0.5*dx;
+				this.ddx(1) = (this.value(2) - this.value(n)).*0.5*this.dx;
+				this.ddx(n) = (this.value(1) - this.value(n-1)).*0.5*this.dx;
 			end
 
 			retval = this.ddx;
@@ -72,10 +72,12 @@ classdef fdQuant1d < fdQuantity
 			this.d2dx2(2:n-1) = this.value(1:n-2) - 2*this.value(2:n-1) + this.value(3:n);
  
 			if this.bcs(1) == 'p'
-				this.d2dx2(1) = this.value(2) - 2*this.value(1) + this.value(n);
+				this.d2dx2(1) = this.value(2) - 2.0*this.value(1) + this.value(n);
+				this.d2dx2(end) = this.value(end-1) - 2.0*this.value(end) + this.value(1); 
 			end
 
-			retval = this.d2dx2 = this.d2dx2./(this.dx^2);
+			this.d2dx2 = this.d2dx2./(this.dx^2);
+			retval = this.d2dx2;
 		end
 
 		function retval = laplace(this)

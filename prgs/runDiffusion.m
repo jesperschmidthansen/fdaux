@@ -1,5 +1,9 @@
+##
+## Solution from note by Matthew J. Hancock
+##
 
-clear all;  addpath("../src/");
+
+clear;  addpath("../src/");
 
 function phi = solution(t, lx, ly, nterms, ngrid)
 
@@ -20,42 +24,38 @@ function phi = solution(t, lx, ly, nterms, ngrid)
 
 endfunction
 
+##############################################
 
-function dadt = rhs(time, funvar)
-
-	a = funvar{1};
-	diffcoef = funvar{2};
- 
-	dadt = diffcoef.*a.laplace();
-
-end 
-
-lx  = 5; ly  = lx;
-ngx = 50; ngy = ngx;
-dx = lx/ngx; dy = ly/ngy;
-
-tend = 1.0; dt = 0.1*dx*dx; 
-nloops = int32(tend/dt);
 
 compare = true;
 
+lx  = 5; ly  = lx;
+ngx = 50; ngy = ngx;
+
+dx = lx/ngx; dy = ly/ngy;
+
 a = fdQuant2d([ngx, ngy], [dx, dy], "ddnd"); 
+
 a.setvalue(100);
 
-intgr = fdAdams(dt);
+dt = 0.1*dx*dx;
+
+intgr = fdEuler2d(dt);
 
 tic
-for n=1:nloops
-	a = intgr.fstep(a, "rhs", {a, 1.0});
-	a.update();
+for n=1:5000
+  	a.calcd2dx2(); a.calcd2dy2();
+	a.rhs = a.d2dx2 + a.d2dy2;
+	
+	intgr.step(a);
+	a.applybcs();
 end
 toc
 
-surf(a.value); xlabel('x'); ylabel('y'); zlabel('Num. solution');
 
 if compare
 
-	phiSol = solution(tend, lx, ly, 10, ngx);
+	phiSol = solution(n*dt, lx, ly, 10, ngx);
 	
 	x = linspace(0, lx, ngx); y = x;
 	[X Y]= meshgrid(x,y);
@@ -68,8 +68,6 @@ if compare
 	surf(X,Y, phiSol); xlabel('x'); ylabel('y'); zlabel('Analytical solution');
 
 	figure(2);
-	plot(a.value(ngx/2, :), 'ks', phiSol(ngx/2,:), 'b-');
-
-	printf("Max. error %f\n", max(max(abs(phiSol - a.value))));
-
+	plot(a.value(
+B
 endif
