@@ -23,21 +23,28 @@ $$
 \partial_t u = -u\partial_xu + \nu \partial_x^2 u 
 $$
 
-$u$ is some quantity we seek the solution for. In fdaux this is then a object type <code>fdQuant1d</code>. The function that defines the rhs of the dynamical equation, ie. $\mathbf{F}$, is 
+$u$ is some quantity we seek the solution for. In fdaux $u$ is an object type <code>fdQuant1d</code> - that is, a one dimensional quantity. The function that defines the rhs of the dynamical equation, ie. $\mathbf{F}$, must be on the form 
 
 <pre>
 <code>
   function retval = rhs(time, quantities, parameters);
 </code>
 </pre>
-  
+where 
+<ul>
+  <li><code>time</code> is the current time (scalar)</li>
+  <li><code>qunatities</code>code> is a cell list of quantities on which $\mathbf{F}$ depends </li>
+  <li><code>parameters</code> is the problem parameters (scalar or vector)</li>
+  <li><code>retval</code> is a cell list with matrices (with the values for the derivatives for each quantity)</li>
+</ul>
+
 <pre>
 <code>
   function cretval = burgers(timenow, cquantity, nu)
   
     u = cquantity{1};
     
-    du = -u.value.*u.calcddx('forward') + nu*u.laplace();
+    du = -u.value.*u.grad('forward') + nu*u.laplace();
     
     cretval = {du};
   
