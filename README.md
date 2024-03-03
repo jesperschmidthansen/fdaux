@@ -1,69 +1,54 @@
 <h2>Introduction</h2>
 
-The fd GNU Octave tool-box is a set of functionalties that can help to solve (real) partial differential equations on the general form  
+The purpose of fdaux is to provide a set of functionalties for finite difference methods that can help you to solve (real) partial differential equations. Currently, only one and two dimensional Cartesian systems are supported. 
+In general,the equation is on form  
 
 $$
-  \partial_t \boldsymbol{\phi} = \mathbf{F}(t,\boldsymbol{\phi}) 
+  \partial_t \boldsymbol{\phi}(\mathbf{r},t) = \mathbf{F}(t,\boldsymbol{\phi}; \mathbf{p}) 
 $$
 
-where $\boldsymbol{\phi} = (\phi_1, \phi_2, \ldots)$. The user can provide the right-hand function. 
+where $\mathbf{r}$ is the spatial coordinate vector, $t$ the time, $\boldsymbol{\phi}(\mathbf{r},t) = (\phi_1(\mathbf{r},t) , \phi_2(\mathbf{r},t) , \ldots)$, and $\mathbf{p}$ a set of parameter. For example, the simple diffusion equation 
+in two dimensions can be written on this form
 
+$$
+\partial_t a = D \left( \partial_x^2 + \partial^2_y\right) a  
+$$
 
-<h2>Example</h2>
-The example below shows how fd can help to simulate a Turing structure. First, we define the dynamics of the two dynamcal qunatities a and b
+Comparing with the general form we identify $\phi=a$ and $p=D$. The user provides the right-hand side (rhs) of the equation.  
 
-<div class="box"> 
+<h2>Example I - defining the dynamics </h2>
+Consider the Burgers equations in one dimension
+
+$$
+\partial_t u = -u\partial_xu + \nu \partial_x^2 u 
+$$
+
+$u$ is some quantity we seek the solution for. In fdaux $u$ is an object type <code>fdQuant1d</code> - that is, a one dimensional quantity. The function that defines the rhs of the dynamical equation, ie. $\mathbf{F}$, must be on the form 
+
 <pre>
-function dadt = rhsa(time, funvar)
-  a = funvar{1}; b = funvar{2}; alpha = funvar{3};
-  reaction = a.value - a.value.^3 - b.value + alpha;
-  dadt = reaction + a.laplace();
-end
+<code>
+  function retval = rhs(time, quantities, parameters)
+</code>
 </pre>
+where 
+<ul>
+  <li><code>time</code> is the current time (scalar)</li>
+  <li><code>qunatities</code>code> is a cell list of quantities on which $\mathbf{F}$ depends </li>
+  <li><code>parameters</code> is the problem parameters (scalar or vector)</li>
+  <li><code>retval</code> is a cell list with matrices (with the values for the derivatives for each quantity)</li>
+</ul>
+For the Burgers equation this translates to 
 <pre>
-function dbdt = rhsb(time, funvar)
-  a = funvar{1}; b = funvar{2};
-  beta = funvar{3}; diffcoef = funvar{4};
-  reaction = beta.*(a.value - b.value);
-  dbdt = reaction + diffcoef.*b.laplace();
-end
+<code>
+  function cretval = burgers(timenow, cquantity, nu)
+    # cquantity is the cell list with relevant quantities - here u
+    u = cquantity{1};
+    # The derivative 
+    du = -u.value.*u.grad('forward') + nu*u.laplace();
+    # Return as a cell list
+    cretval = {du};
+  end  
+</code>
 </pre>
-</div>
-Then setting up the system variables
-<div class="box">
-  <pre>
-lbox = 100; ngrd = 100; dx =lbox/ngrd; dt = 0.1*dx^2/100.0; nloops = 1e4;
-alpha = 0.01; beta = 0.5; diffcoef = 100;
-  </pre>
-</div>
-Instancies of the quantities
-<div class="box">
-  <pre>
-a = fdQuant2d([ ngrd, ngrd],[dx, dx], "nnnn"); 
-b = fdQuant2d([ngrd, ngrd],[dx, dx], "nnnn"); 
+Notice: <code>u</code> is an instance of object of type <code>fdQuant1d</code>. This has a member <code>value</code> which is simply the value of the quantity. Also, the object has methods <code>grad</code> and <code>laplace</code> that evaluates the gradient and Laplacian using the current value.
 
-a.value = 0.2*(rand(ngrd)-0.5) + alpha^(1/3);
-b.value = 0.2*(rand(ngrd)-0.5) + alpha^(1/3);
-  </pre>
-</div>
-The integrator
-<div class="box">
-  <pre>
-  intgr = fdAdams(dt, 2);
-  </pre>
-</div>
-And run
-<div class="box">
-  <pre>
-for n=1:nloops
-  a = intgr.fstep(a, "rhsa", {a,b, alpha});
-  b = intgr.fstep(b, "rhsb", {a,b, beta, diffcoef});
-  a.update(); b.update();
-  if rem(n,100)==0
-    imagesc(a.value);
-    pause(0.01);
-  end
-end
-</pre>
-</div>
-<img src="doc/turing.jpg" alt="turing" width="500" height="500">
