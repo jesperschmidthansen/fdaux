@@ -7,7 +7,7 @@ $$
   \partial_t \boldsymbol{\phi}(\mathbf{r},t) = \mathbf{F}(t,\boldsymbol{\phi}; \mathbf{p}) 
 $$
 
-where $\mathbf{r}$ is the spatial coordinate vector, $t$ the time, $\boldsymbol{\phi}(\mathbf{r},t) = (\phi_1(\mathbf{r},t) , \phi_2(\mathbf{r},t) , \ldots)$, and $\mathb{p}$ a set of parameter. For example, the simple diffusion equation 
+where $\mathbf{r}$ is the spatial coordinate vector, $t$ the time, $\boldsymbol{\phi}(\mathbf{r},t) = (\phi_1(\mathbf{r},t) , \phi_2(\mathbf{r},t) , \ldots)$, and $\mathbf{p}$ a set of parameter. For example, the simple diffusion equation 
 in two dimensions can be written on this form
 
 $$
@@ -25,13 +25,16 @@ $$
 
 $u$ is some quantity we seek the solution for. In fdaux this is then a object type <code>fdQuant1d</code>
 
+<pre>
 <code>
 function cretval = burgers(timenow, cquantity, nu)
 
   u = cquantity{1};
+  
   du = -u.value.*u.calcddx('forward') + nu*u.laplace();
+  
   cretval = {du};
 
 end  
 </code>
-
+</pre>
