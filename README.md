@@ -11,7 +11,7 @@ where $\mathbf{r}$ is the spatial coordinate vector, $t$ the time, $\boldsymbol{
 in two dimensions can be written on this form
 
 $$
-\partial_t a = D \left( \partial_x^2 + \partial^2_y)a  
+\partial_t a = D \left( \partial_x^2 + \partial^2_y\right) a  
 $$
 
 Comparing with the general form we identify $\phi=a$ and $p=D$. The user provides the right-hand side (rhs) of the equation.  
