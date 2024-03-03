@@ -50,3 +50,5 @@ For the Burgers equation this translates to
   end  
 </code>
 </pre>
+Notice: <code>u</code> is an instance of object of type <code>fdQuant1d</code>. This has a member <code>value</code> which is simply the value of the quantity. Also, the object has methods <code>grad</code> and <code>laplace</code> that evaluates the gradient and Laplacian using the current value.
+
