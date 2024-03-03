@@ -27,7 +27,7 @@ $u$ is some quantity we seek the solution for. In fdaux $u$ is an object type <c
 
 <pre>
 <code>
-  function retval = rhs(time, quantities, parameters);
+  function retval = rhs(time, quantities, parameters)
 </code>
 </pre>
 where 
@@ -37,17 +37,16 @@ where
   <li><code>parameters</code> is the problem parameters (scalar or vector)</li>
   <li><code>retval</code> is a cell list with matrices (with the values for the derivatives for each quantity)</li>
 </ul>
-
+For the Burgers equation this translates to 
 <pre>
 <code>
   function cretval = burgers(timenow, cquantity, nu)
-  
+    # cquantity is the cell list with relevant quantities - here u
     u = cquantity{1};
-    
+    # The derivative 
     du = -u.value.*u.grad('forward') + nu*u.laplace();
-    
+    # Return as a cell list
     cretval = {du};
-  
   end  
 </code>
 </pre>
