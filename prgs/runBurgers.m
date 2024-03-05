@@ -3,7 +3,7 @@ clear all;
 function cretval = rhs(time, cvar, prefac)
 
 	u = cvar{1};
-	du = -u.value.*u.calcddx('forward') + prefac*u.laplace();
+	du = -u.value.*u.grad('forward') + prefac*u.laplace();
 	cretval = {du};
 
 end

@@ -5,6 +5,12 @@
 
 clear;  addpath("../src/");
 
+function dadt = rhs(time, a, diffcoef)
+	
+	dadt = {diffcoef*a{1}.laplace()};
+
+end
+
 function phi = solution(t, lx, ly, nterms, ngrid)
 
   x = linspace(0, lx, ngrid);
@@ -30,24 +36,18 @@ endfunction
 compare = true;
 
 lx  = 5; ly  = lx;
-ngx = 50; ngy = ngx;
-
+ngx = 100; ngy = ngx;
 dx = lx/ngx; dy = ly/ngy;
-
-a = fdQuant2d([ngx, ngy], [dx, dy], "ddnd"); 
-
-a.setvalue(100);
-
 dt = 0.1*dx*dx;
 
-intgr = fdEuler2d(dt);
+a = fdQuant2d([ngx, ngy], [dx, dy], "ddnd"); 
+a.setvalue(100);
+
+intgr = fdEuler(dt);
 
 tic
 for n=1:5000
-  	a.calcd2dx2(); a.calcd2dy2();
-	a.rhs = a.d2dx2 + a.d2dy2;
-	
-	intgr.step(a);
+	intgr.cstep({a}, 1.0, "rhs");
 	a.applybcs();
 end
 toc
@@ -68,6 +68,6 @@ if compare
 	surf(X,Y, phiSol); xlabel('x'); ylabel('y'); zlabel('Analytical solution');
 
 	figure(2);
-	plot(a.value(
-B
+	plot(a.value(25,:)); hold on; plot(phiSol(25,:)); hold off;
+
 endif

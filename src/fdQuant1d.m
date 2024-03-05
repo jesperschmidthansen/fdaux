@@ -86,8 +86,8 @@ classdef fdQuant1d < fdQuantity
 				
 		end
 
-		function retval = grad(this)
-			retval = this.calcddx();
+		function retval = grad(this, method='central')
+			retval = this.calcddx(method);
 		end
 
 		function applybcs(this)
