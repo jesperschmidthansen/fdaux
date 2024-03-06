@@ -63,12 +63,10 @@ Below the Burgers equation is solved numerically using the Adams integrator and 
   ngrid = 50; dx=1./ngrid; x = linspace(0,1,ngrid);
   dt = 5e-4;  nloops = 1e4;
   nu = 0.05;
-
   # Instance of fdQuant1d
   u = fdQuant1d(ngrid, dx, "dd");
   u.value = 2 * pi * nu * sin(pi*x)./(2+cos(pi.*x));
-  
-  # Specifying the integrator
+  # Integrator
   intgr = fdAdams(dt);
 
   for n=1:nloops
