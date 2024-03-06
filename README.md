@@ -39,17 +39,13 @@ where
 For the Burgers equation this translates to 
 <pre>
 <code>
-  function cretval = burgers(timenow, cquantity, nu)
-    # cquantity is the cell list of fdQuant1d types - here only u
-    u = cquantity{1};
-  
-    # The derivative - the gradient is calculated using forward differencing
-    # and the Laplacian is calculated with the default central difference
-    du = -u.value.*u.grad('forward') + nu*u.laplace();
-  
-    # Return as a cell list
-    cretval = {du};
-  end  
+function cretval = burgers(timenow, cquantity, nu)
+  u = cquantity{1};
+
+  du = -u.value.*u.grad('forward') + nu*u.laplace();
+
+  cretval = {du};
+end  
 </code>
 </pre>
 Note: <code>u</code> is an instance of object of type <code>fdQuant1d</code>. This has a member <code>value</code> which is simply the value of the quantity. Also, the object has methods <code>grad</code> and <code>laplace</code> that evaluates the gradient and Laplacian using the current value.
@@ -58,20 +54,20 @@ Note: <code>u</code> is an instance of object of type <code>fdQuant1d</code>. Th
 Below the Burgers equation is solved numerically using the Adams integrator and homogenous Dirichlet boundary conditions 
 <pre>
 <code>
-  ngrid = 50; dx=1./ngrid; x = linspace(0,1,ngrid);
-  dt = 5e-4;  nloops = 1e4;
-  nu = 0.05;
+ngrid = 50; dx=1./ngrid; x = linspace(0,1,ngrid);
+dt = 5e-4;  nloops = 1e4;
+nu = 0.05;
 
-  u = fdQuant1d(ngrid, dx, "dd");
-  u.value = 2 * pi * nu * sin(pi*x)./(2+cos(pi.*x));
-  
-  intgr = fdAdams(dt);
+u = fdQuant1d(ngrid, dx, "dd");
+u.value = 2 * pi * nu * sin(pi*x)./(2+cos(pi.*x));
 
-  for n=1:nloops
-    intgr.cstep({u}, nu, "burgers");
-  end
-  
-  plot(x, u.value, 's-');
+intgr = fdAdams(dt);
+
+for n=1:nloops
+  intgr.cstep({u}, nu, "burgers");
+end
+
+plot(x, u.value, 's-');
 </code>
 </pre>
 Currently you can choose Euler, Adams, and Runge-Kutta 2nd and 4th order.
