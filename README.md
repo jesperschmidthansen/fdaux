@@ -16,7 +16,6 @@ $$
 
 Comparing with the general form we identify $\phi=a$ and $p=D$. The user provides the right-hand side (rhs) of the equation.  
 
-<h2>Example I - defining the dynamics </h2>
 Consider the Burgers equations in one dimension
 
 $$
