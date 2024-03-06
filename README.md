@@ -59,14 +59,13 @@ Note: <code>u</code> is an instance of object of type <code>fdQuant1d</code>. Th
 Below the Burgers equation is solved numerically using the Adams integrator and homogenous Dirichlet boundary conditions 
 <pre>
 <code>
-  # System parameters
   ngrid = 50; dx=1./ngrid; x = linspace(0,1,ngrid);
   dt = 5e-4;  nloops = 1e4;
   nu = 0.05;
-  # Instance of fdQuant1d
+
   u = fdQuant1d(ngrid, dx, "dd");
   u.value = 2 * pi * nu * sin(pi*x)./(2+cos(pi.*x));
-  # Integrator
+  
   intgr = fdAdams(dt);
 
   for n=1:nloops
@@ -76,5 +75,6 @@ Below the Burgers equation is solved numerically using the Adams integrator and 
   plot(x, u.value, 's-');
 </code>
 </pre>
+Currently you can choose Euler, Adams, and Runge-Kutta 2nd and 4th order.
 
 
