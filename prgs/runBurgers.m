@@ -1,5 +1,9 @@
 clear all;
 
+addpath("../src/mfiles");
+addpath("../src/cppfiles");
+
+
 function cretval = rhs(time, cvar, prefac)
 
 	u = cvar{1};

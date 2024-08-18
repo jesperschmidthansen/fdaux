@@ -1,4 +1,8 @@
-clear all;  addpath("../src/");
+clear all;  
+
+addpath("../src/mfiles");
+addpath("../src/cppfiles");
+
 
 ngrd = 100; dx = 0.1; dt = 5e-3;
 

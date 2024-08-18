@@ -3,7 +3,10 @@
 ##
 
 
-clear;  addpath("../src/");
+clear all; 
+addpath("../src/mfiles");
+addpath("../src/cppfiles");
+
 
 function value = correct(value,xcor, ycor)
 

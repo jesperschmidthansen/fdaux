@@ -1,4 +1,8 @@
-clear all; addpath("../src/");
+clear all; 
+
+addpath("../src/mfiles");
+addpath("../src/cppfiles");
+
 
 function creturn = rhs(time, cvariable, param)
 	
