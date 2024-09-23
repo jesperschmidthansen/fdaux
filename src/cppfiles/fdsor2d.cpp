@@ -4,10 +4,10 @@
  
 #include <octave/oct.h>
 
-#define HELPTXT "Usage: [solution, niter, status]=fdsor2d(phi, w, dx, relxfac, errmax)"				
+#define HELPTXT "Usage: [solution, niter, status]=fdsor2d(phi, w, dx, relxfac, errmax, opt:constraint_idx, opt:constraint_value)"				
 
 
-DEFUN_DLD(fdsor2d, args, , HELPTXT){
+DEFUN_DLD(ofdsor, args, , HELPTXT){
 
 	octave_value_list retval;
 
@@ -21,7 +21,15 @@ DEFUN_DLD(fdsor2d, args, , HELPTXT){
 	
 	const int ngrdx = phi.columns(); // x-direction - column wise 
 	const int ngrdy = phi.rows();    // y-direction - row wise
+
+	Matrix c_idx(ngrdy, ngrdx, 0.0);
+   	Matrix c_val(ngrdy, ngrdx, 0.0);
 	
+	if ( args.length()==7 ){
+		c_idx = args(5).matrix_value();
+		c_val = args(6).matrix_value();
+	}
+
 	const double dx = spacings(0); const double dy = spacings(1);
 	const double dx2 = dx*dx; const double dy2 = dy*dy;
 	const double dxpdy = 2.0*(dx2 + dy2);
@@ -39,8 +47,12 @@ DEFUN_DLD(fdsor2d, args, , HELPTXT){
 			for ( int i=1; i<ngrdx-1; i++ ){
 				double a = dx2*(phi(j+1,i) + phi(j-1,i));
 				double b = dy2*(phi(j,i+1) + phi(j,i-1));
-				phi(j,i) = prefac1*W(j,i) + prefac2*(a + b); 	
-
+				   
+				if( (int)c_idx(j,i)==1 ) 
+					phi(j,i) = c_val(j,i);
+				else 
+					phi(j,i) = prefac1*W(j,i) + prefac2*(a + b); 	
+				
 				a = phi(j,i)-phiprev(j,i); err += a*a;
 			 }
 		}
@@ -52,14 +64,20 @@ DEFUN_DLD(fdsor2d, args, , HELPTXT){
 	
 		for ( int j=1; j<ngrdy-1; j++ ){
 			for ( int i=1; i<ngrdx-1; i++ ){
-				phi(j,i) = phiprev(j,i) + relaxfac*(phi(j,i) - phiprev(j,i)); 	
+				if ( (int)c_idx(j,i)==1 ) 
+					phi(j,i) = c_val(j,i);
+				else 
+					phi(j,i) = phiprev(j,i) + relaxfac*(phi(j,i) - phiprev(j,i)); 	
+			
 				phiprev(j,i) = phi(j,i);
 			}
 		}
 
 	}
 
-	retval.append(phi);	retval.append(niter); retval.append(status);
+	retval.append(phi);	
+	retval.append(niter); 
+	retval.append(status);
 
 	return retval;
 }
