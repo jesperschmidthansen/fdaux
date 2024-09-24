@@ -7,7 +7,7 @@
 #define HELPTXT "Usage: [solution, niter, status]=fdsor2d(phi, w, dx, relxfac, errmax, opt:constraint_idx, opt:constraint_value)"				
 
 
-DEFUN_DLD(ofdsor, args, , HELPTXT){
+DEFUN_DLD(fdsor2d, args, , HELPTXT){
 
 	octave_value_list retval;
 
