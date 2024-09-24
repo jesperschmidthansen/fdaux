@@ -3,7 +3,6 @@
 ##
 
 
-clear all; 
 addpath("../src/mfiles");
 addpath("../src/cppfiles");
 

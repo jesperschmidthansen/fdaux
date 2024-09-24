@@ -2,12 +2,9 @@
 ## Solution from note by Matthew J. Hancock
 ##
 
-
-clear all; 
 addpath("../src/mfiles");
 addpath("../src/cppfiles");
-
-
+#{
 function value = correct(value,xcor, ycor)
 
 	[ngy ngx] = size(value);
@@ -21,6 +18,7 @@ function value = correct(value,xcor, ycor)
 	value(ycor(2)+1,xcor(1):xcor(2))=value(ycor(2)+2,xcor(1):xcor(2));
 
 end
+#}
 
 function dadt = rhs(time, a, diffcoef)
 	

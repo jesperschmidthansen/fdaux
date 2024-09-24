@@ -1,12 +1,11 @@
-clear all;  
 
 addpath("../src/mfiles");
 addpath("../src/cppfiles");
 
 ngrd = 100; dx = dy = 0.1;
-invRe = 1/500;
-dt = 5e-3;
-nloops = 1e4;
+invRe = 1/200;
+dt = 2.5e-3;
+nloops = 1e3;
 
 U1=V2=V4=0;
 U3 = 1;

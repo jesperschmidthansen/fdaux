@@ -2,8 +2,6 @@
 # Poisson problem with obstacles
 #
 
-clear all
-
 addpath("../src/mfiles/");
 addpath("../src/cppfiles/");
 
