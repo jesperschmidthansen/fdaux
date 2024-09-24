@@ -1,8 +1,12 @@
 # 
-# Poisson problem with obstavles
+# Poisson problem with obstacles
 #
 
-clear
+clear all
+
+addpath("../src/mfiles");
+addpath("../src/cppfiles");
+
 
 lx  = 5; ly  = lx;
 ngx = 100; ngy = ngx;
