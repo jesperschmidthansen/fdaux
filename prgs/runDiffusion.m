@@ -47,13 +47,10 @@ a.setvalue(100);
 
 intgr = fdEuler(dt);
 
-tic
 for n=1:5000
-	intgr.cstep({a}, 1.0, "rhs");
+	intgr.cstep("rhs", {a}, 1.0);
 	a.applybcs();
 end
-toc
-
 
 if compare
 
@@ -70,6 +67,7 @@ if compare
 	surf(X,Y, phiSol); xlabel('x'); ylabel('y'); zlabel('Analytical solution');
 
 	figure(2);
-	plot(a.value(25,:)); hold on; plot(phiSol(25,:)); hold off;
-
+	plot(a.value(25,:), ";Num. solution;"); hold on; 
+	plot(phiSol(25,:), ";Analytical Solution;"); hold off;
+	ylabel("value"); xlabel("Spatial coord.");
 endif

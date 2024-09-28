@@ -18,6 +18,7 @@ c_val = zeros(ngx, ngx);
 
 for n=1:10
 	[u, niter, status] = fdsor2d(u, -force, [dx dy], 1.5, 1e-8, c_idx, c_val);
-	printf("%d\n", niter);
+	printf("%d ", niter);
 end
 
+surf(u);

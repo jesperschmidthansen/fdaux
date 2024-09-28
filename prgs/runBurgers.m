@@ -41,10 +41,10 @@ intgrEuler = fdEuler(dt); intgrAdams = fdAdams(dt); intgrRK2 = fdRK2(dt); intgrR
 
 for n=1:nloops
 
-	intgrEuler.cstep({u_Euler}, nu, "rhs");	u_Euler.value(1) = 0; u_Euler.value(end)=0;
-	intgrAdams.cstep({u_Adams}, nu, "rhs");	u_Adams.value(1) = 0; u_Adams.value(end)=0;
-	intgrRK2.cstep({u_RK2}, nu, "rhs");	u_RK2.value(1) = 0; u_RK2.value(end)=0;
-	intgrRK4.cstep({u_RK4}, nu, "rhs");	u_RK4.value(1) = 0; u_RK4.value(end)=0;
+	intgrEuler.cstep("rhs", {u_Euler}, nu); u_Euler.value(1) = 0; u_Euler.value(end)=0;
+	intgrAdams.cstep("rhs", {u_Adams}, nu);	u_Adams.value(1) = 0; u_Adams.value(end)=0;
+	intgrRK2.cstep("rhs", {u_RK2}, nu);	u_RK2.value(1) = 0; u_RK2.value(end)=0;
+	intgrRK4.cstep("rhs", {u_RK4}, nu);	u_RK4.value(1) = 0; u_RK4.value(end)=0;
 
 end	
 

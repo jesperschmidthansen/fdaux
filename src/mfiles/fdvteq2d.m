@@ -1,36 +1,35 @@
 
 #
-# Usage dwdt = fdveq2d(time now, cell array)
+# Usage dwdt = fdveq2d(time now, variable cell array, nu0)
 #
 # Right-hand side of the two dimensional vorticity equation 
 #
 # input 
 # time now: the current time
 # cell array: A cell array with five elements 
-#            {vorticity field, stream function, u field, v field, viscosity} 
-#            
+#            {vorticity field, u field, v field} 
+# nu0: The kinetimatic viscosity
+#
 # output
 # dwdt: Derivative of vorticity field           
 #
 # exampe
-# dwdt = fdvteq2d(time, {w, psi, u, v, 1.0});
+# dwdt = fdvteq2d(time, {w, u, v}, 1.0);
 #
-function dwdt  = fdvteq2d(time, funvar)
+function dwdt  = fdvteq2d(time, cvar, nu0)
 
-	if nargin!=2
-		error("Number of inputs must be 2"); 	
+	if nargin!=3
+		error("Number of inputs must be 3"); 	
 	end
-	if length(funvar)!=5
+	if length(cvar)!=3
 		error("Length of cell array input argument must be 5");
 	end	
 	
-	w = funvar{1}; psi = funvar{2};
-	u=funvar{3}; v=funvar{4}; 
-	visc = funvar{5};
+	w = cvar{1}; u=cvar{2}; v=cvar{3}; 
 	
 	w.calcddx(); w.calcddy(); 
-	dwdt = -u.value.*w.ddx - v.value.*w.ddy + visc*w.laplace();
-	
+
+	dwdt = {-u.value.*w.ddx - v.value.*w.ddy + nu0*w.laplace()};		
 end
 
 

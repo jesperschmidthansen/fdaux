@@ -28,7 +28,7 @@ classdef fdQuant2d < fdQuantity
 
 				this.ngrdx = grids(1); this.ngrdy = grids(2);
 				this.dx = spacings(1); this.dy = spacings(2);
-				this.value = this.rhs = zeros(this.ngrdy, this.ngrdx);
+				this.value = this.nvalue = this.rhs = zeros(this.ngrdy, this.ngrdx);
 				
 			end
 			

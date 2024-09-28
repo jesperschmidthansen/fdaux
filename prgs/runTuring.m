@@ -18,7 +18,7 @@ function creturn = rhs(time, cvariable, param)
 
 end
 
-lbox = 100; ngrd = 100; dx =lbox/ngrd; dt = 0.1*dx^2/10.0; nloops = 1e5;
+lbox = 100; ngrd = 100; dx =lbox/ngrd; dt = 0.1*dx^2/10.0; nloops = 1e4;
 alpha = 0.01; beta = 0.1; diffcoef = 10;
 
 a = fdQuant2d([ngrd, ngrd],[dx, dx], "pppp"); 
@@ -31,7 +31,7 @@ intgr = fdRK4(dt, 2);
 
 for n=1:nloops
 	
-	intgr.cstep({a, b}, [alpha, beta, diffcoef], "rhs");
+	intgr.cstep("rhs", {a, b}, [alpha, beta, diffcoef]);
 
 	if rem(n,100)==0
 		imagesc(a.value);

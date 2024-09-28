@@ -16,16 +16,13 @@ w1 = exp(-sigma*(X-x1).^2 - sigma*Y.^2);
 w2 = exp(-sigma*(X-x2).^2 - sigma*Y.^2);
 w.value  = w1 + w2;
 wm  = sum(sum(w.value)); fac = 2./(dx^2)/wm; w.value = w.value*fac;
-
 # NOTICE: The total production term (rhs) must be zero to have a well defined problem in periodic systems
 wm  = sum(sum(w.value))/(ngrd*ngrd); w.value   = w.value - wm;
 
 for n=1:20000
 		
-	[psi u v] = fdsuv2d(w);
-	w = intgr.fstep(w, "fdvteq2d", {w, psi, u, v, 1/1000.0});
-
-	w.update();
+	[u v] = fdsuv2d(w);
+	intgr.cstep("fdvteq2d", {w, u, v}, 1/1000);
 
 	if rem(n,100) == 0
 		contour(w.value);
@@ -34,6 +31,5 @@ for n=1:20000
 		
 endfor
 
-printf("\n");
 
 

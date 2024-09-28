@@ -1,5 +1,5 @@
 #
-# Usage: [psi, u, v] = fdsuv2d(w, bcs, sorfac, error)
+# Usage: [u, v, psi] = fdsuv2d(w, bcs, sorfac, error)
 #
 # Calculate the stream function and velocity field from the vorticity.  
 #
@@ -15,9 +15,9 @@
 # v: velocity y-component
 #
 # example
-# [psi, u, v] = fdsuv2d(w, 'd', 1.75, 1.0e-6);
+# [u, v, psi] = fdsuv2d(w, 'd', 1.75, 1.0e-6);
 #
-function [psi, u, v] = fdsuv2d(w, bc='p', sorfac=1.5, _error=1.0e-5)
+function [u, v, _psi] = fdsuv2d(w, bc='p', sorfac=1.5, _error=1.0e-5)
 		
 	ngrdx = w.ngrdx; ngrdy = w.ngrdy;
 	dx = w.dx; dy = w.dy;
@@ -36,15 +36,15 @@ function [psi, u, v] = fdsuv2d(w, bc='p', sorfac=1.5, _error=1.0e-5)
 
 	u = fdQuant2d([ngrdx, ngrdy], [dx, dy], bcs); 
 	v = fdQuant2d([ngrdx, ngrdy], [dx, dy], bcs); 
-	psi = fdQuant2d([ngrdx, ngrdy], [dx, dy], bcs); 
+	_psi = fdQuant2d([ngrdx, ngrdy], [dx, dy], bcs); 
 
 	if bc=='p'
-		psi.value = fdspec2d(-w.value, ngrdx, dx);
+		_psi.value = fdspec2d(-w.value, ngrdx, dx);
 	else 
-		psi.value = fdsor2d(psi.value, -w.value, [dx, dy], sorfac, _error);
+		_psi.value = fdsor2d(_psi.value, -w.value, [dx, dy], sorfac, _error);
 	end
 
-	psi.calcddx(); psi.calcddy(); 
-	u.value = psi.ddy; v.value = -psi.ddx; 
+	_psi.calcddx(); _psi.calcddy(); 
+	u.value = _psi.ddy; v.value = -_psi.ddx; 
 	
 end

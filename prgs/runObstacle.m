@@ -43,7 +43,7 @@ obstacle1 = fdObstacle2d([40, 60], [20,40]);
 obstacle2 = fdObstacle2d([40, 60], [60,80]);
 
 for n=1:50000
-	intgr.cstep({a}, 1.0, "rhs");
+	intgr.cstep("rhs", {a}, 1.0);
 	a.applybcs();
 	a.value(:, end)=100;
 	

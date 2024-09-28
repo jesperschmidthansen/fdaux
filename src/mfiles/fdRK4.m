@@ -12,7 +12,7 @@ classdef fdRK4 < fdIntegrator
 			this.ncall = nquant; this.ccall = 0;
 		end
 
-		function cphi = cstep(this, cphi, param, rhs)
+		function cphi = cstep(this, rhs, cphi, param)
 		
 			crhs_1 = feval(rhs, this.tnow, cphi, param);
 			for n=1:this.ndim

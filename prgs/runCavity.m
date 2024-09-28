@@ -11,7 +11,6 @@ U1=V2=V4=0;
 U3 = 1;
 
 w = fdQuant2d([ngrd, ngrd],[dx, dx], "dddd"); 
-psi = zeros(ngrd, ngrd);
 
 ## Initial conditions
 h = 0.5*ngrd*dx; 
@@ -22,7 +21,7 @@ intgr = fdEuler(dt);
 
 for n=1:nloops
 
-	[phi u v] = fdsuv2d(w, 'd');
+	[u v phi] = fdsuv2d(w, 'd');
 
 	# Thom's rule 	
 	#wall 1
@@ -35,9 +34,12 @@ for n=1:nloops
 	#wall 4
 	w.value(:,1) = 2.0/dx^2*(phi.value(:,1)-phi.value(:,2)) - 2/dx*V4;
 
-	w = intgr.fstep(w, "fdvteq2d", {w, phi, u, v, invRe});
+	intgr.cstep("fdvteq2d", {w, u, v}, invRe);
 
-	w.update();
+	#size(w.value)
+	#w.update();
+
+	#size(w.value)
 
 	if rem(n,100)==0
 		figure(1);

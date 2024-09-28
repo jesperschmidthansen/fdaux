@@ -40,9 +40,9 @@ classdef fdAdams < fdIntegrator
 			this.update();	
 		end
 
-		function cphi = cstep(this, cphi, param, rhs)
+		function cphi = cstep(this, rhs, cphi, params)
 			
-			cret = feval(rhs, this.tnow, cphi, param);
+			cret = feval(rhs, this.tnow, cphi, params);
 
 			if this.niterations == 0 	
 				for n=1:this.ndim

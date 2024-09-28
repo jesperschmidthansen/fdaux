@@ -20,17 +20,9 @@ classdef fdEuler < fdIntegrator
 
 		end
 
-		function phi = fstep(this, phi, rhs, funvar)
+		function cphi = cstep(this, rhs, cphi, params)
 		
-			phi.nvalue = phi.value + feval(rhs, this.tnow, funvar)*this.dt;
-			
-			this.update();
-
-		end
-
-		function cphi = cstep(this, cphi, param, rhs)
-		
-			cret = feval(rhs, this.tnow, cphi, param);
+			cret = feval(rhs, this.tnow, cphi, params);
 			
 			for n=1:this.ndim
 				cphi{n}.value = cphi{n}.value + cret{n}*this.dt;
