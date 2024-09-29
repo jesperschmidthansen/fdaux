@@ -81,12 +81,12 @@ plot(x, u.value, 's-');
 Currently you can choose Euler, Adams, and Runge-Kutta 2nd and 4th order.
 
 <h2>To-do list and tasks</h2>
-- [] Clean-up of integrator methods (step and cstep only)
-- [] Clean-up of class members (including inheritance members)
-- [] Variable time-step integration
-- [] Courant number checks  
-- [] Example program for duct flow (SIMPLE and staggered grids?)
-- [] Variable grid size
-- [] An integrator method "run" (in order to avoid user-supplied main loop)
+- [ ] Clean-up of integrator methods (step and cstep only)
+- [ ] Clean-up of class members (including inheritance members)
+- [ ] Variable time-step integration
+- [ ] Courant number checks  
+- [ ] Example program for duct flow (SIMPLE and staggered grids?)
+- [ ] Variable grid size
+- [ ] An integrator method "run" (in order to avoid user-supplied main loop)
 
 
