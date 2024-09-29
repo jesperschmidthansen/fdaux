@@ -45,11 +45,11 @@ For the Burgers equation this translates to
 <pre>
 <code>
 function cretval = burgers(timenow, cquantity, nu)
-  u = cquantity{1};
+    u = cquantity{1};
 
-  du = -u.value .* u.grad('forward') + nu * u.laplace();
+    du = -u.value .* u.grad('forward') + nu * u.laplace();
 
-  cretval = {du};
+    cretval = {du};
 end  
 </code>
 </pre>
@@ -72,7 +72,7 @@ u.value = 2 * pi * nu * sin(pi*x)./(2+cos(pi.*x));
 intgr = fdAdams(dt);
 
 for n=1:nloops
-  intgr.cstep({u}, nu, "burgers");
+    intgr.cstep("burgers", {u}, nu);
 end
 
 plot(x, u.value, 's-');
