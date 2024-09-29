@@ -44,6 +44,7 @@ where
 For the Burgers equation this translates to 
 
 ´´´
+  
     function cretval = burgers(timenow, cquantity, nu)
         u = cquantity{1};
 
