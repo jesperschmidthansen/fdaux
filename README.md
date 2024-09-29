@@ -44,13 +44,13 @@ where
 For the Burgers equation this translates to 
 
 ´´´
-function cretval = burgers(timenow, cquantity, nu)
-    u = cquantity{1};
+    function cretval = burgers(timenow, cquantity, nu)
+        u = cquantity{1};
 
-    du = -u.value .* u.grad('forward') + nu * u.laplace();
+        du = -u.value .* u.grad('forward') + nu * u.laplace();
 
-    cretval = {du};
-end  
+        cretval = {du};
+    end  
 ´´´ 
 
 Note: <code>u</code> is an instance of object of type <code>fdQuant1d</code>. This has a 
