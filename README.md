@@ -31,7 +31,7 @@ we must provide the right-hand side of the equation using an Octave function. In
 general, this is on the form
 
 ```octave
-  function retval = rhs(time, quantities, parameters)
+function retval = rhs(time, quantities, parameters)
 ```
 
 where 
@@ -44,13 +44,13 @@ where
 For the Burgers equation this translates to 
 
 ```octave
-    function cretval = burgers(timenow, cquantity, nu)
-        u = cquantity{1};
+function cretval = burgers(timenow, cquantity, nu)
+    u = cquantity{1};
 
-        du = -u.value .* u.grad('forward') + nu * u.laplace();
+    du = -u.value .* u.grad('forward') + nu * u.laplace();
 
-        cretval = {du};
-    end  
+    cretval = {du};
+end  
 ``` 
 
 Note: <code>u</code> is an instance of object of type <code>fdQuant1d</code>. This has a 
