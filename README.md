@@ -29,11 +29,11 @@ In fdaux the function $u$ is a variable (or quantity) which is specified through
 the object type <code>fdQuant1d</code>. Using fdaux to solve the Burgers equation 
 we must provide the right-hand side of the equation using an Octave function. In 
 general, this is on the form
-<pre>
-<code>
+
+```octave
   function retval = rhs(time, quantities, parameters)
-</code>
-</pre>
+```
+
 where 
 <ul>
   <li><code>time</code> is the current time (scalar)</li>
@@ -60,8 +60,8 @@ gradient and Laplacian.
 
 Below the Burgers equation is solved numerically using the Adams integrator 
 and homogenous Dirichlet boundary conditions 
-<pre>
-<code>
+
+```octave
 ngrid = 50; dx=1./ngrid; x = linspace(0,1,ngrid);
 dt = 5e-4;  nloops = 1e4;
 nu = 0.05;
@@ -76,8 +76,8 @@ for n=1:nloops
 end
 
 plot(x, u.value, 's-');
-</code>
-</pre>
+```
+
 Currently you can choose Euler, Adams, and Runge-Kutta 2nd and 4th order.
 
 
