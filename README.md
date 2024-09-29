@@ -43,7 +43,7 @@ where
 </ul>
 For the Burgers equation this translates to 
 
-```matlab
+```octave
     function cretval = burgers(timenow, cquantity, nu)
         u = cquantity{1};
 
