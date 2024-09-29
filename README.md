@@ -43,7 +43,7 @@ where
 </ul>
 For the Burgers equation this translates to 
 
-´´´matlab
+```matlab
   
     function cretval = burgers(timenow, cquantity, nu)
         u = cquantity{1};
@@ -52,7 +52,7 @@ For the Burgers equation this translates to
 
         cretval = {du};
     end  
-´´´ 
+``` 
 
 Note: <code>u</code> is an instance of object of type <code>fdQuant1d</code>. This has a 
 member <code>value</code> which is simply the value of the quantity. Also, the object has 
