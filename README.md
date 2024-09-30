@@ -82,17 +82,22 @@ Currently you can choose Euler, Adams, and Runge-Kutta 2nd and 4th order.
 
 <h2>To-do list and tasks</h2>
 
-- [ ] Clean-up of integrator methods (step and cstep only)
+- [ ] Revision: integrators - only step and cstep integrator methods?
 
-- [ ] Clean-up of class members (including inheritance members)
+- [ ] Revision: boundary condition implementation
 
-- [ ] Variable time-step integration
+- [ ] Revision: quantity class members (including inheritance members). Is quantity the right name?
 
-- [ ] Courant number checks  
+- [ ] Feature: obstacles  (initiated)
 
-- [ ] Example program for duct flow (SIMPLE and staggered grids?)
+- [ ] Feature: Variable time-step support for integrators
 
-- [ ] Variable grid size
+- [ ] Feature: Courant number checks  
 
-- [ ] An integrator method "run" (in order to avoid user-supplied main loop)
+- [ ] Example: program for duct flow (SIMPLE and staggered grids?)
+
+- [ ] Feature: Variable grid size
+
+- [ ] Feature: integrator method "run" (in order to avoid user-supplied main loop)
+
 
