@@ -49,7 +49,7 @@ function dphidt = burgers(t, phi, nu)
 
     dudt = -u.value .* u.grad('forward') + nu * u.laplace();
 
-    dphidt= {du};
+    dphidt= {dudt};
 end  
 ``` 
 
