@@ -94,10 +94,12 @@ Currently you can choose Euler, Adams, and Runge-Kutta 2nd and 4th order.
 
 - [ ] Feature: Courant number checks  
 
-- [ ] Example: program for duct flow (SIMPLE and staggered grids?)
-
 - [ ] Feature: Variable grid size
 
 - [ ] Feature: integrator method "run" (in order to avoid user-supplied main loop)
+
+- [ ] Feature: A wrapper for Poisson equation solver (see fdpois2d.m)
+
+- [ ] Example: program for duct flow (SIMPLE and staggered grid implementation?)
 
 
