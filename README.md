@@ -31,25 +31,25 @@ we must provide the right-hand side of the equation using an Octave function. In
 general, this is on the form
 
 ```octave
-function retval = rhs(time, quantities, parameters)
+function dphidt = rhs(time, phi, parameters)
 ```
 
 where 
 <ul>
   <li><code>time</code> is the current time (scalar)</li>
-  <li><code>quantities</code> is a cell list of quantities on which $\mathbf{F}$ depends </li>
+  <li><code>phi</code> is a cell list of quantities on which $\mathbf{F}$ depends </li>
   <li><code>parameters</code> is a vector of problem parameters </li>
-  <li><code>retval</code> is a cell list containing the values for the derivatives for each quantity at each point</li>
+  <li><code>dphidt</code> is a cell list containing the values for the derivatives for each quantity at each point</li>
 </ul>
 For the Burgers equation this translates to 
 
 ```octave
-function cretval = burgers(timenow, cquantity, nu)
-    u = cquantity{1};
+function dphidt = burgers(t, phi, nu)
+    u = phi{1};
 
-    du = -u.value .* u.grad('forward') + nu * u.laplace();
+    dudt = -u.value .* u.grad('forward') + nu * u.laplace();
 
-    cretval = {du};
+    dphidt= {du};
 end  
 ``` 
 
