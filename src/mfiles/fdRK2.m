@@ -6,7 +6,7 @@ classdef fdRK2 < fdIntegrator
 		function this = fdRK2(dt, nquant=1)
 			this.dt = dt;
 			this.tnow = 0; 
-			this.niterations = 0;
+			this.nnow = 0;
 			this.ndim = nquant;
 		end
 

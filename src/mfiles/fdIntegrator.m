@@ -8,21 +8,21 @@ classdef fdIntegrator < handle
 		# System dimensions
 		ndim;		
 
-		# No. of iteration performed
-		niterations;
+		# Current no. of iterations, total number of iterations
+		nnow; ntotal;
 	end
 
 	methods
 
 		function disp(this)
 			printf("Time step: %e, current time: %f, iteration number: %d\n", ...
-					this.dt, this.tnow, this.niterations);
+					this.dt, this.tnow, this.nnow);
 		end		
 
 		function update(this)
 	
 			this.tnow = this.tnow + this.dt;
-			this.niterations = this.niterations + 1;
+			this.nnow = this.nnow + 1;
 		end
 
 		function setdt(this, dtmax, maxcourant, u, v)
