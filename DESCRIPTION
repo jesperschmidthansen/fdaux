@@ -19,8 +19,8 @@ To provide a toolbox for finite difference methods to solve transport equations
 
 - For two dimensional domain
 
-   y          y-dir -> index j 
-   |          x-dir -> index i
+   y          y-dir (rows) -> index j 
+   |          x-dir (columns) -> index i
    |
    |______ x 
  
@@ -93,6 +93,9 @@ To provide a toolbox for finite difference methods to solve transport equations
 (1) runDiffusion - 2d diffusion Neuman/Dirichlet bcs, comparison with analytical solution
 (2) runVorticity - the 2d vorticity equation with periodic bcs
 (3) runCavity - the famous 2d cavity flow
-(4) RunTuring - Turing structures in 2d
-(5) RunBurgers - The 1d Burgers equation
+(4) runTuring - Turing structures in 2d
+(5) runBurgers - The 1d Burgers equation
+(6) runObstacle - 2d diffusion with obstacles
+(7) runPoissonObstacles - 2d Poisson problem with obstacles
+
 
