@@ -24,7 +24,7 @@ classdef fdQuant2d < fdQuantity
 
 				if ( length(grids) != 2 || length(spacings) != 2 )
 					error("Specification of the grid and spacings not valid");
-				endif
+				end
 
 				this.ngrdx = grids(1); this.ngrdy = grids(2);
 				this.dx = spacings(1); this.dy = spacings(2);
@@ -39,7 +39,7 @@ classdef fdQuant2d < fdQuantity
 				end
 
 				this.bcs = boundaries;
-			endif	
+			end	
 		end
 
 		function retval = calcddx(this, method)
@@ -60,10 +60,6 @@ classdef fdQuant2d < fdQuantity
 			end
 
 			if this.bcs(2)=='p' 
-				if ( nargin == 2 && strcmp(method, central)!=0 ) 
-					error("Only central difference support for periodic bcs");
-				endif
-				
 				this.ddx(:, 1) = (this.value(:,2) - this.value(:,end))./(2*this.dx);
     			this.ddx(:, end) = (this.value(:,1) - this.value(:,end-1))./(2*this.dx);
 			end
@@ -89,10 +85,6 @@ classdef fdQuant2d < fdQuantity
 			end
 			
 			if this.bcs(1)=='p'
-				if ( nargin == 2 && strcmp(method, central)!=0 )
-					error("Only central difference support for periodic bcs");
-				endif
-	
 				this.ddy(1,:) = (this.value(2,:) - this.value(end,:))./(2*this.dy);
     			this.ddy(end,:) = (this.value(1,:) - this.value(end-1,:))./(2*this.dy);
 			end
@@ -141,7 +133,7 @@ classdef fdQuant2d < fdQuantity
 		function setbcs(this, specifier)
 			if ( !ischar(specifier) || length(specifier) != 4 )
 				error("Boundary specifications not correct");
-			endif
+			end
 			this.bcs = specifier;
 		end
 
@@ -157,8 +149,8 @@ classdef fdQuant2d < fdQuantity
 						this.value(this.ngrdy,:) = this.value(this.ngrdy-1,:);
 					else
 						this.value(:,1)=this.value(:,2);	
-					endif
-				endif				
+					end
+				end				
 			endfor
 
 		end
