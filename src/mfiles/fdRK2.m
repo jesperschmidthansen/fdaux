@@ -8,8 +8,6 @@ classdef fdRK2 < fdIntegrator
 			this.tnow = 0; 
 			this.niterations = 0;
 			this.ndim = nquant;
-
-			this.ncall = nquant; this.ccall = 0;
 		end
 
 		function cphi = cstep(this, rhs, cphi, param)
@@ -27,8 +25,7 @@ classdef fdRK2 < fdIntegrator
 				cphi{n}.value = cphi{n}.pvalue + this.dt*cretval{n};
 			end
 		
-			this.tnow = this.tnow + this.dt;
-			this.niterations = this.niterations + 1;
+			this.update();
 		end
 
 	end

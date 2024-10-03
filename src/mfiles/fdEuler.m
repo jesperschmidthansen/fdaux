@@ -8,16 +8,11 @@ classdef fdEuler < fdIntegrator
 			this.tnow = 0; 
 			this.niterations = 0;
 			this.ndim = nquant;
-			
-			this.ncall = nquant; this.ccall = 0; #<- depreciated
 		end
 
 		function phi = step(this, phi)
-		
 			phi.nvalue = phi.value + phi.rhs*this.dt;
-
 			this.update();
-
 		end
 
 		function cphi = cstep(this, rhs, cphi, params)
@@ -28,8 +23,7 @@ classdef fdEuler < fdIntegrator
 				cphi{n}.value = cphi{n}.value + cret{n}*this.dt;
 			end
 			
-			this.tnow = this.tnow + this.dt;
-			this.niterations = this.niterations + 1;
+			this.update();
 		end
 
 
