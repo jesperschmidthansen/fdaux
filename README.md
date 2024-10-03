@@ -90,6 +90,8 @@ Currently you can choose Euler, Adams, and Runge-Kutta 2nd and 4th order.
 
 - [ ] Feature: obstacles  (initiated)
 
+- [ ] Feature: step methods for RK2 and RK4
+
 - [ ] Feature: Variable time-step support for integrators
 
 - [ ] Feature: Courant number checks  
