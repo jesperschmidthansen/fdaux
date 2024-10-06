@@ -38,15 +38,15 @@ function cmat = fdcmat2d(ngrids, spacings)
 
     	if rem(n, ngx)==0
       		m = m + 1;
-    	endif
+    	end
     
     	if ( n<ngx || n>ngrids2-ngx || rem(n-1,ngx)==0 || rem(n, ngx)==0 )
       		cmat(n,n) = 1;
 		else
       		indices = [n-ngx, n-1, n, n+1, n+ngx];
       		cmat(n, indices) = [idy2 idx2 -c  idx2 idy2];
-		endif
+		end
                
-	endfor
+	end
 
-endfunction
+end

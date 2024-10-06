@@ -10,11 +10,11 @@ function [sol ksq] = fdspec2d(phi, ngrd, dx, ksq)
          
 		if ( abs(ksq(1,1)) < 1e-6 )
                  ksq(1 , 1) = 1 ;
-		endif
-	endif	
+		end
+	end	
 	
     sol = real(ifft2(fft2(phi)./ksq));
 
-endfunction
+end
 
 

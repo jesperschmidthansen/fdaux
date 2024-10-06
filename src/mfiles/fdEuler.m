@@ -26,7 +26,6 @@ classdef fdEuler < fdIntegrator
 			this.update();
 		end
 
-
 	end
 
 end

@@ -151,7 +151,7 @@ classdef fdQuant2d < fdQuantity
 						this.value(:,1)=this.value(:,2);	
 					end
 				end				
-			endfor
+			end
 
 		end
 

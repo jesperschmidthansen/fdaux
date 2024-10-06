@@ -1,28 +1,34 @@
 
 
-function [sol status] = fdpois2d(phi, w, grdspace, method, argmethod, errsor)
-
+function [sol status] = fdpois2d(w, grdspace, method, argmethod)
+	
 	switch (method)
 		case "sor"
-			[sol, it, status] = fdsor2d(phi, w, grdspace, 1.5, 1.0e-5);
+			phi = argmethod{1};
+			relxfac = argmethod{2}; 
+			err = argmethod{3};	
+	
+			[sol, it, status] = fdsor2d(phi, w, grdspace, relxfac, err);
 				
 		case "direct"	
-			[ngrdy, ngrdx] = size(phi);
-			
-			x = linspace(0, ngrdx*grdspace(1), ngrdx);
-			y = linspace(0, ngrdy*gidspace(2), ngrdy);
-			[X Y]=meshgrid(x,y);
+			[ngrdy, ngrdx] = size(w);
 
-			A = cmat2d(X,Y);
-			W = mattovec(w);
-			sol = vectomat(A\W, ngrdy, ngrdx);
+			A = fdcmat2d([ngrdy, ngrdx], grdspace); 
+			W = fdm2v2d(w);
+			
+			sol = fdv2m2d(A\W, [ngrdy, ngrdx]);
 			status = 1;
 
 		case "spectral"
-						
-			
+			[ngrdy, ngrdx] = size(w);
+			if ngrdy != ngrdx 
+				error("Spectral method only accepts square domains");
+			end
+					
+			[sol ksq] = fdspec2d(w, ngrdx, grdspace) 			
+
 		otherwise
 			error("Not a valid method");
-	endswitch
+	end
 
-endfunction
+end
