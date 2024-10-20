@@ -39,16 +39,16 @@ a.setvalue(100);
 
 intgr = fdEuler(dt);
 
-obstacle1 = fdObstacle2d([40, 60], [20,40]);
-obstacle2 = fdObstacle2d([40, 60], [60,80]);
+obstacles = fdObstacle2d([ngx, ngy]);
+obstacles.value(20:80, 70:80) = true;
 
-for n=1:50000
+for n=1:5000
+
 	intgr.cstep("rhs", {a}, 1.0);
 	a.applybcs();
 	a.value(:, end)=100;
 	
-	a.value = obstacle1.correct(a.value);
-	a.value = obstacle2.correct(a.value);
+	a.value = obstacles.correct(a.value);
 
 
 	if rem(n, 100)==0 

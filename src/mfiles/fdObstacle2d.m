@@ -3,27 +3,38 @@ classdef fdObstacle2d < fdObstacle
 
 	methods
 		
-		function this = fdObstacle2d(xpos, ypos)
-
-			this.xpos = xpos; this.ypos = ypos;
+		function this = fdObstacle2d(grids)
+			
+			this.ngrdx = grids(1); this.ngrdy = grids(2);
+			this.value = int64(zeros(this.ngrdy, this.ngrdx));
   
 		end
 
+		
+		function phi = correct(this, phi)
 
-		function value = correct(this, value)
+			[idxi idxj] = find(this.value==true);
+			nobjgrds = length(idxi);
 
-			[ngy ngx] = size(value);
+			for n=1:nobjgrds
+					
+				# Get boundary points and set no-flux
+				if this.value(idxi(n)-1, idxj(n)) == 0
+					phi(idxi(n)-1, idxj(n)) = phi(idxi(n)-2, idxj(n));
+				end
+				if this.value(idxi(n)+1, idxj(n)) == 0
+					phi(idxi(n)+1, idxj(n)) = phi(idxi(n)+2, idxj(n));
+				end
+				if this.value(idxi(n), idxj(n)-1) == 0
+					phi(idxi(n), idxj(n)-1) = phi(idxi(n), idxj(n)-2);
+				end
+				if this.value(idxi(n), idxj(n)+1)==0
+					phi(idxi(n), idxj(n)+1) = phi(idxi(n), idxj(n)+2);
+				end
 
-			ypos = this.ypos; xpos = this.xpos;
-	
-			value(ypos(1):ypos(2), xpos(1):xpos(2)) = 0;
-
-			value(ypos(1):ypos(2), xpos(1)-1) = value(ypos(1):ypos(2), xpos(1)-2);
-			value(ypos(1):ypos(2), xpos(2)+1) = value(ypos(1):ypos(2), xpos(2)+2);
-
-			value(ypos(1)-1,xpos(1):xpos(2))=value(ypos(1)-2,xpos(1):xpos(2));
-			value(ypos(2)+1,xpos(1):xpos(2))=value(ypos(2)+2,xpos(1):xpos(2));
-
+				phi(idxi(n), idxj(n))=0;	
+			end					
+			
 		end
 
 
