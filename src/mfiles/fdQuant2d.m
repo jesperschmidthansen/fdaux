@@ -18,7 +18,7 @@ classdef fdQuant2d < fdQuantity
 
 		function this = fdQuant2d(grids, spacings, boundaries)
 			
-			if (nargin == 0 )
+			if ( nargin == 1 )
 				this;
 			elseif ( nargin >= 2 )
 
@@ -41,6 +41,14 @@ classdef fdQuant2d < fdQuantity
 				this.bcs = boundaries;
 			end	
 		end
+
+		function lbset(this, grids)
+
+			this.ngrdx = grids(1); this.ngrdy = grids(2);
+			this.value = ones(this.ngrdy, this.ngrdx, 9);
+
+		end
+
 
 		function retval = calcddx(this, method)
 			
