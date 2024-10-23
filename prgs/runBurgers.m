@@ -19,18 +19,17 @@ function u = solution(x, t, nu)
 end
 
 # Parameters
-ngrid = 50; dx=1./ngrid; 
+h=1.0; ngrid = 50; 
 dt = 8e-4;  nloops = 1e3;
 nu = 0.05;
+
+x = linspace(0, h, ngrid); dx = h/ngrid;
 
 # Quantities
 u_Euler = fdQuant1d(ngrid, dx, "dd");
 u_Adams = fdQuant1d(ngrid, dx, "dd");
 u_RK2 = fdQuant1d(ngrid, dx, "dd");
 u_RK4 = fdQuant1d(ngrid, dx, "dd");
-
-# Spatial coordinate
-x = linspace(0, 1, ngrid);
 
 # Initial conditions
 u_Euler.value = u_Adams.value = u_RK2.value = u_RK4.value = initu = 2*pi*nu*sin(pi*x)./(2+cos(pi.*x));
