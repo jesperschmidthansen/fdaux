@@ -12,7 +12,7 @@ end
 
 F0 = 1.5;
 ngrdx = 800; ngrdy = 100;
-nloops = 4000 ;
+nloops = 2000 ;
 
 obstacle_type = "cylinder";
 
