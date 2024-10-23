@@ -10,8 +10,8 @@ function w=gvort(ux, uy)
 	w = duydx - duxdy;
 end
 
-F0 = 2.;
-ngrdx = 400; ngrdy = 50;
+F0 = 1.5;
+ngrdx = 800; ngrdy = 100;
 nloops = 4000 ;
 
 obstacle_type = "cylinder";
@@ -33,10 +33,10 @@ if strcmp(obstacle_type, "cylinder")
 	[X, Y] = meshgrid([1:1:ngrdx], [1:1:ngrdy]);
 	obstacle = (X - ngrdx/4).^2 + (Y - ngrdy/2).^2 < (ngrdy/4).^2;
 elseif strcmp(obstacle_type, "squares")
-	obstacle(20:30,20:30) = 1;
-	obstacle(10:20, 100:130)=1;
-	obstacle(30:40, 60:80)=1;
-	obstacle(20:30, 150:180)=1;
+	obstacle(40:60,40:60) = 1;
+	obstacle(20:40, 200:260)=1;
+	obstacle(60:80, 120:160)=1;
+	obstacle(40:60, 300:360)=1;
 elseif strcmp(obstacle_type, "poiseuille")
 	obstacle(1:5,:)=1; obstacle(end-5:end,:)=1;
 end
@@ -49,12 +49,22 @@ for n=1:nloops
 	
     [ux, uy, rho] = intgr.step(f, obstacle);
 	
-	if rem(n, 10)==0
+	if rem(n, 20)==0
+		ux_red = ux(1:4:end, 1:10:end);
+		uy_red = uy(1:4:end, 1:10:end);
+		x = linspace(1, ngrdx, columns(ux_red));
+		y = linspace(1, ngrdy, rows(ux_red));
 		vorticity = gvort(ux, uy);
-		colormap(hsv); 
+		
+		colormap('hsv'); 
 		imagesc(vorticity, [-0.05, 0.05]);
 		colorbar;
 		axis([1 ngrdx 1 ngrdy]);
+		[X, Y] = meshgrid(x,y);
+		hold on;
+		quiver(X, Y, ux_red, uy_red);
+	
+		hold off
 		pause(0.001);
 	end
 	

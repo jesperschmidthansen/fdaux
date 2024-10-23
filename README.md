@@ -1,4 +1,5 @@
 <h2>Introduction</h2>
+![](logo.png)
 
 The purpose of fdaux is to provide a set of functionalities for finite difference methods 
 that can help you to solve partial differential equations (pdes). Currently, only one and two 
