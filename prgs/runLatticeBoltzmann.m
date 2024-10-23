@@ -10,9 +10,9 @@ function w=gvort(ux, uy)
 	w = duydx - duxdy;
 end
 
-F0 = 0.6;
+F0 = 2.;
 ngrdx = 400; ngrdy = 50;
-rho0 = 100; nloops = 2000 ;
+nloops = 4000 ;
 
 obstacle_type = "cylinder";
 
@@ -24,7 +24,7 @@ f.value(:,:,4) = f.value(:,:,4) + F0;
 
 # Normalizing with density
 rho = sum(f.value,3);
-f.value(:,:,[1:1:9]) = f.value(:,:,[1:1:9]).*(rho0./rho);
+f.value(:,:,[1:1:9]) = f.value(:,:,[1:1:9])./rho;
 
 # Def. of cylinder (1 cylinder grid, 0 not)
 obstacle = zeros(ngrdy, ngrdx);
@@ -46,22 +46,18 @@ intgr = fdlb();
 
 # Simulation Main Loop
 for n=1:nloops
-
+	
     [ux, uy, rho] = intgr.step(f, obstacle);
-
+	
 	if rem(n, 10)==0
 		vorticity = gvort(ux, uy);
-		c = max(abs([min(vorticity),max(vorticity)]));
-		caxis([-1 1])
-
-		colormap(hsv(512)); #hsv
-		imagesc(vorticity, [-0.1, 0.1]);
+		colormap(hsv); 
+		imagesc(vorticity, [-0.05, 0.05]);
 		colorbar;
 		axis([1 ngrdx 1 ngrdy]);
 		pause(0.001);
 	end
-		
+	
 end 
-
 
 
