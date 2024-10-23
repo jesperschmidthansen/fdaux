@@ -1,4 +1,4 @@
-<img src="logo.png" width="1200" height="100">
+<img src="logo.png" width="1500" height="150">
 
 <h2>Introduction</h2>
 
