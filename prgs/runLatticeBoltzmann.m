@@ -14,7 +14,7 @@ F0 = 1.5;
 ngrdx = 800; ngrdy = 100;
 nloops = 3000 ;
 
-obstacle_type = "squares";
+obstacle_type = "cylinder";
 
 f = fdQuant2d();
 f.lbset([ngrdx, ngrdy]); 

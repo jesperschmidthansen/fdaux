@@ -1,8 +1,8 @@
 #include <octave/oct.h>
 #include "fdmisc.h"
+#include <omp.h>
 
 #define HELP ("\n")
-
 
 DEFUN_DLD(fdcplb2, args, ,HELP){
 	octave_value_list retval;
@@ -27,9 +27,8 @@ DEFUN_DLD(fdcplb2, args, ,HELP){
 		ux(i1,i2) = 0.0f; uy(i1, i2) = 0.0f;
 	}
 
-	retval.append(f);
-	retval.append(ux);
-	retval.append(uy);
+	retval.append(f); 
+	retval.append(ux); retval.append(uy);
 
 	return retval;	
 }

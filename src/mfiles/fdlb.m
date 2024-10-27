@@ -20,42 +20,23 @@ classdef fdlb < fdIntegrator
 		end
 
 		function [ux, uy, rho] = step(this, f, obstacle) 
-
+		
 			[ngrdy, ngrdx, nflows] = size(f.value);
 			
 			[cidy cidx] = find( obstacle == 1 );
 			lenc = length(cidy);  
-			
-			# Drift
+	
+			# Drift (next optimization point)
 			for i=1:nflows 
 				f.value(:,:,i) = circshift(f.value(:,:,i), [this.cys(i), this.cxs(i)]);
 			end 
-			
+		
 			bndry = fdcplb1(f.value, cidy, cidx);	
-	
-			 # Calculate fluid variables
-			rho = sum(f.value,3);
-
-			ux = zeros(ngrdy, ngrdx); uy = zeros(ngrdy, ngrdx);
-			for i=1:nflows
-				ux = ux + this.cxs(i)*f.value(:,:, i);
-				uy = uy + this.cys(i)*f.value(:,:, i);
-			end
-
-			ux = ux./rho; uy = uy./rho;
 			
-			feq = zeros(ngrdy, ngrdx, nflows);	
-			# Calculate eq. distribution - here dx/dt = 1
-			for i=1:nflows
-				dotcu = this.cxs(i)*ux + this.cys(i)*uy;
-				dotuu = ux.^2 + uy.^2;
-				feq(:,:,i) = this.weights(i)*rho.*(1 + 3*dotcu + 9/2*dotcu.^2 - 3/2*dotuu );
-			end
-
-			f.value = f.value - (f.value - feq)/this.tau;
+			[f.value, rho, ux, uy] = fdflowlb(f.value, this.tau);
 
 			[f.value, ux, uy] = fdcplb2(f.value, bndry, ux, uy, cidy, cidx);
-		
+	
 		end
 
 	end
