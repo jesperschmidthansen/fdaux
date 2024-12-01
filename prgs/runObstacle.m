@@ -4,21 +4,6 @@
 
 addpath("../src/mfiles");
 addpath("../src/cppfiles");
-#{
-function value = correct(value,xcor, ycor)
-
-	[ngy ngx] = size(value);
-	
-	value(ycor(1):ycor(2), xcor(1):xcor(2)) = 0;
-
-	value(ycor(1):ycor(2), xcor(1)-1) = value(ycor(1):ycor(2), xcor(1)-2);
-	value(ycor(1):ycor(2), xcor(2)+1) = value(ycor(1):ycor(2), xcor(2)+2);
-
-	value(ycor(1)-1,xcor(1):xcor(2))=value(ycor(1)-2,xcor(1):xcor(2));
-	value(ycor(2)+1,xcor(1):xcor(2))=value(ycor(2)+2,xcor(1):xcor(2));
-
-end
-#}
 
 function dadt = rhs(time, a, diffcoef)
 	
@@ -49,7 +34,6 @@ for n=1:5000
 	a.value(:, end)=100;
 	
 	a.value = obstacles.correct(a.value);
-
 
 	if rem(n, 100)==0 
 		mesh(a.value);

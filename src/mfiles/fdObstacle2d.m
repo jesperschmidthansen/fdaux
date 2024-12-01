@@ -13,28 +13,12 @@ classdef fdObstacle2d < fdObstacle
 		
 		function phi = correct(this, phi)
 
+			[ngrdy, ngrdx] = size(phi);
 			[idxi idxj] = find(this.value==true);
 			nobjgrds = length(idxi);
 
-			for n=1:nobjgrds
-					
-				# Get boundary points and set no-flux
-				if this.value(idxi(n)-1, idxj(n)) == 0
-					phi(idxi(n)-1, idxj(n)) = phi(idxi(n)-2, idxj(n));
-				end
-				if this.value(idxi(n)+1, idxj(n)) == 0
-					phi(idxi(n)+1, idxj(n)) = phi(idxi(n)+2, idxj(n));
-				end
-				if this.value(idxi(n), idxj(n)-1) == 0
-					phi(idxi(n), idxj(n)-1) = phi(idxi(n), idxj(n)-2);
-				end
-				if this.value(idxi(n), idxj(n)+1)==0
-					phi(idxi(n), idxj(n)+1) = phi(idxi(n), idxj(n)+2);
-				end
+			phi = fdcorrectn2d(phi, this.value, idxi, idxj, nobjgrds); 
 
-				phi(idxi(n), idxj(n))=0;	
-			end					
-			
 		end
 
 
