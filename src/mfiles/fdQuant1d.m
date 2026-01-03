@@ -54,7 +54,8 @@ classdef fdQuant1d < fdQuantity
 			end
 
 			if this.bcs(1) == 'p'
-				if (nargin == 2 && strcmp(method, central)!=0 )
+				if (nargin == 2 && strcmp(method, "central")!=0 )
+					method
 					error("Only central difference support for periodic bcs");
 				end
 				this.ddx(1) = (this.value(2) - this.value(n)).*0.5*this.dx;
